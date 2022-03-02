@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
               // if (movieList != null)
               //   for (var item in movieList.results)
               //     Text('${item.original_title}'),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text('Movie'),
               ),
@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text('tv'),
               ),
@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// ignore: camel_case_types
+// ignore: camel_case_types, must_be_immutable
 class widgetCardMovie extends StatelessWidget {
   Movie? item;
   widgetCardMovie({Key? key, this.item}) : super(key: key);
@@ -83,7 +83,7 @@ class widgetCardMovie extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: Container(
         width: 150,
         height: 250,
