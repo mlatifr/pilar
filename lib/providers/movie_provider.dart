@@ -21,7 +21,7 @@ class MovieProviders extends ChangeNotifier {
     return _listMovie;
   }
 
-  //get list movie
+  //get list tv
   static TvList? _listTv;
   TvList? get listTv => _listTv;
   Future<TvList?> getListTv() async {
@@ -33,5 +33,21 @@ class MovieProviders extends ChangeNotifier {
     _listTv = tvListFromJson(response.body);
     notifyListeners();
     return _listTv;
+  }
+
+  //get detail movie
+  static Movie? _detailMovie;
+  Movie? get detailMovie => _detailMovie;
+  Future<Movie?> getDetailMovie(idMovie) async {
+    print('getDetailMovie: provider');
+    // ignore: prefer_adjacent_string_concatenation
+    final response = await http.get(Uri.parse('https://api.themoviedb.org/3' +
+        '/movie/$idMovie?api_key=' +
+        'fbb9572d11b5458ac98f02b84f2bafc4'));
+    print(response.body);
+    _detailMovie = movieDetailFromJson(response.body);
+    print('_detailMovie: ${_detailMovie?.original_title}');
+    notifyListeners();
+    return _detailMovie;
   }
 }

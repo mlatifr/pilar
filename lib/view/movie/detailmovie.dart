@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pilar/models/movie_model.dart';
 
 class DetailMovie extends StatefulWidget {
-  var id;
-  DetailMovie({Key? key, this.id}) : super(key: key);
+  Movie? dataDetail;
+  DetailMovie({Key? key, this.dataDetail}) : super(key: key);
 
   @override
   State<DetailMovie> createState() => _DetailMovieState();
@@ -11,7 +12,6 @@ class DetailMovie extends StatefulWidget {
 class _DetailMovieState extends State<DetailMovie> {
   @override
   void initState() {
-    print('id movie: ${widget.id}');
     super.initState();
   }
 
@@ -19,8 +19,9 @@ class _DetailMovieState extends State<DetailMovie> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Align(
-            alignment: Alignment.center, child: Text('Title Movie')),
+        title: Align(
+            alignment: Alignment.center,
+            child: Text('${widget.dataDetail?.original_title}')),
       ),
       body: Stack(children: [
         Image.network(

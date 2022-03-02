@@ -28,9 +28,7 @@ class Movie {
       };
 }
 
-MovieList movieListFromJson(String str) => MovieList.fromJson(json.decode(str));
-
-String movieListToJson(MovieList data) => json.encode(data.toJson());
+Movie movieDetailFromJson(String str) => Movie.fromJson(json.decode(str));
 
 class MovieList {
   final List<Movie> results;
@@ -43,3 +41,7 @@ class MovieList {
         "results": List<dynamic>.from(results.map((x) => x.toJson())),
       };
 }
+
+MovieList movieListFromJson(String str) => MovieList.fromJson(json.decode(str));
+
+String movieListToJson(MovieList data) => json.encode(data.toJson());

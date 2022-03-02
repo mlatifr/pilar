@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var loadingPercentageMovie = 'Loading';
   var loadingPercentageTv = 'Loading';
+
   Future<void> _getListMovie() async {
     print('_getListMovie: homepage');
     await Provider.of<MovieProviders>(context, listen: false)
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                 Center(
                   child: Column(
                     children: [
-                      CircularProgressIndicator(),
+                      const CircularProgressIndicator(),
                       Text('$loadingPercentageMovie')
                     ],
                   ),
@@ -79,11 +80,12 @@ class _HomePageState extends State<HomePage> {
                       for (var item in movieList.results)
                         widgetCardMovie(
                           item: item,
+                          detailMovie: true,
                         )
                   ],
                 ),
               ),
-              Center(
+              const Center(
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text('TV'),
@@ -93,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                 Center(
                   child: Column(
                     children: [
-                      CircularProgressIndicator(),
+                      const CircularProgressIndicator(),
                       Text('$loadingPercentageTv')
                     ],
                   ),
