@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 
 class DetailMovie extends StatefulWidget {
-  const DetailMovie({Key? key}) : super(key: key);
+  var id;
+  DetailMovie({Key? key, this.id}) : super(key: key);
 
   @override
   State<DetailMovie> createState() => _DetailMovieState();
 }
 
 class _DetailMovieState extends State<DetailMovie> {
+  @override
+  void initState() {
+    print('id movie: ${widget.id}');
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

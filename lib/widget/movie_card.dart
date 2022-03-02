@@ -14,7 +14,9 @@ class widgetCardMovie extends StatelessWidget {
         Navigator.push<void>(
           context,
           MaterialPageRoute<void>(
-            builder: (BuildContext context) => const DetailMovie(),
+            builder: (BuildContext context) => DetailMovie(
+              id: item.id,
+            ),
           ),
         );
       },
