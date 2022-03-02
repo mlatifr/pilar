@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pilar/models/movie_model.dart';
 import 'package:pilar/providers/movie_provider.dart';
 import 'package:pilar/widget/movie_card.dart';
 import 'package:provider/provider.dart';
@@ -12,14 +11,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var loadingPercentageMovie = 'Loading';
+  var loadingPercentageTv = 'Loading';
   Future<void> _getListMovie() async {
     print('_getListMovie: homepage');
-    await Provider.of<MovieProviders>(context, listen: false).getListMovie();
+    await Provider.of<MovieProviders>(context, listen: false)
+        .getListMovie()
+        .then((value) {
+      setState(() {
+        loadingPercentageMovie = 'done';
+      });
+    });
   }
 
   Future<void> _getListTv() async {
     print('_getListTv: homepage');
-    await Provider.of<MovieProviders>(context, listen: false).getListTv();
+    await Provider.of<MovieProviders>(context, listen: false)
+        .getListTv()
+        .then((value) {
+      setState(() {
+        loadingPercentageTv = 'done';
+      });
+    });
   }
 
   @override
@@ -43,18 +56,25 @@ class _HomePageState extends State<HomePage> {
             final tvList = provider.listTv;
             return SafeArea(
                 child: ListView(children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Movie'),
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Movie'),
+                ),
               ),
+              if (movieList == null || loadingPercentageMovie == 'Loading')
+                Center(
+                  child: Column(
+                    children: [
+                      CircularProgressIndicator(),
+                      Text('$loadingPercentageMovie')
+                    ],
+                  ),
+                ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    if (movieList == null)
-                      Center(
-                        child: CircularProgressIndicator(),
-                      ),
                     if (movieList != null)
                       for (var item in movieList.results)
                         widgetCardMovie(
@@ -63,18 +83,25 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('tv'),
+              Center(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('TV'),
+                ),
               ),
+              if (tvList == null || loadingPercentageTv == 'Loading')
+                Center(
+                  child: Column(
+                    children: [
+                      CircularProgressIndicator(),
+                      Text('$loadingPercentageTv')
+                    ],
+                  ),
+                ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    if (tvList == null)
-                      Center(
-                        child: CircularProgressIndicator(),
-                      ),
                     if (tvList != null)
                       for (var item in tvList.results)
                         widgetCardMovie(

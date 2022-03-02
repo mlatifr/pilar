@@ -21,7 +21,11 @@ class widgetCardMovie extends StatelessWidget {
               width: 100,
               height: 200,
             ),
-          if (item != null) Text('${item?.original_title}'),
+          if (item != null)
+            Text(
+              '${item?.original_title}',
+              overflow: TextOverflow.ellipsis,
+            ),
           if (item != null) Text('${item?.vote_average}'),
         ]),
       ),
