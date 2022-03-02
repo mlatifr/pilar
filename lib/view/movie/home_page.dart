@@ -11,8 +11,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<void> _getListMovie() async {
-    var _duration = const Duration(seconds: 0);
-
     await Provider.of<MovieProviders>(context, listen: false).getListMovie();
   }
 
