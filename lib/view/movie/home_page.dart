@@ -13,12 +13,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<void> _getListMovie() async {
+    print('_getListMovie: homepage');
     await Provider.of<MovieProviders>(context, listen: false).getListMovie();
+  }
+
+  Future<void> _getListTv() async {
+    print('_getListTv: homepage');
+    await Provider.of<MovieProviders>(context, listen: false).getListTv();
   }
 
   @override
   void initState() {
     _getListMovie();
+    _getListTv();
     super.initState();
   }
 
@@ -33,11 +40,9 @@ class _HomePageState extends State<HomePage> {
           builder: (_, snapshot) {
             final provider = Provider.of<MovieProviders>(context);
             final movieList = provider.listMovie;
+            final tvList = provider.listTv;
             return SafeArea(
                 child: ListView(children: [
-              // if (movieList != null)
-              //   for (var item in movieList.results)
-              //     Text('${item.original_title}'),
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text('Movie'),
@@ -46,12 +51,15 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
+                    if (movieList == null)
+                      Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     if (movieList != null)
                       for (var item in movieList.results)
                         widgetCardMovie(
                           item: item,
                         )
-                    // for (var i = 0; i < 10; i++) widgetCardMovie()
                   ],
                 ),
               ),
@@ -62,14 +70,19 @@ class _HomePageState extends State<HomePage> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: [for (var i = 0; i < 10; i++) widgetCardMovie()],
+                  children: [
+                    if (tvList == null)
+                      Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    if (tvList != null)
+                      for (var item in tvList.results)
+                        widgetCardMovie(
+                          item: item,
+                        )
+                  ],
                 ),
               ),
-              // ElevatedButton(
-              //     onPressed: () {
-              //       _getListMovie();
-              //     },
-              //     child: Text('button'))
             ]));
           }),
     );
