@@ -18,5 +18,6 @@ class MovieProviders extends ChangeNotifier {
     _listMovie = movieListFromJson(response.body);
     print('getListMovie: ${_listMovie.runtimeType}');
     notifyListeners();
+    return _listMovie;
   }
 }

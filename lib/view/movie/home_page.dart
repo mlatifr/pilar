@@ -20,34 +20,47 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Center(child: Text('Pilar Movies')),
       ),
-      body: SafeArea(
-          child: Column(children: [
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text('Movie'),
-        ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [for (var i = 0; i < 10; i++) const widgetCardMovie()],
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text('tv'),
-        ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [for (var i = 0; i < 10; i++) const widgetCardMovie()],
-          ),
-        ),
-        ElevatedButton(
-            onPressed: () {
-              _getListMovie();
-            },
-            child: Text('button'))
-      ])),
+      body: AnimatedBuilder(
+          animation: MovieProviders(),
+          builder: (_, snapshot) {
+            final provider = Provider.of<MovieProviders>(context);
+            final movieList = provider.listMovie;
+            return SafeArea(
+                child: Column(children: [
+              if (movieList != null)
+                for (var item in movieList.results)
+                  Text('${item.original_title}'),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Movie'),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    for (var i = 0; i < 10; i++) const widgetCardMovie()
+                  ],
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('tv'),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    for (var i = 0; i < 10; i++) const widgetCardMovie()
+                  ],
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    _getListMovie();
+                  },
+                  child: Text('button'))
+            ]));
+          }),
     );
   }
 }
