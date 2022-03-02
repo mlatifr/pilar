@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pilar/providers/movie_provider.dart';
-import 'package:pilar/view/movie/movie.dart';
+import 'package:pilar/view/movie/home_page.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         builder: () => const MaterialApp(
           title: 'Movie Pillar',
           debugShowCheckedModeBanner: false, 
-          home: MovieList(),
+          home: HomePage(),
         ),
       ),
     );
