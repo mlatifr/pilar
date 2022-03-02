@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pilar/models/movie_model.dart';
 import 'package:pilar/providers/movie_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void initState() {
+    _getListMovie();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -26,10 +33,10 @@ class _HomePageState extends State<HomePage> {
             final provider = Provider.of<MovieProviders>(context);
             final movieList = provider.listMovie;
             return SafeArea(
-                child: Column(children: [
-              if (movieList != null)
-                for (var item in movieList.results)
-                  Text('${item.original_title}'),
+                child: ListView(children: [
+              // if (movieList != null)
+              //   for (var item in movieList.results)
+              //     Text('${item.original_title}'),
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text('Movie'),
@@ -38,27 +45,30 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    for (var i = 0; i < 10; i++) const widgetCardMovie()
+                    if (movieList != null)
+                      for (var item in movieList.results)
+                        widgetCardMovie(
+                          item: item,
+                        )
+                    // for (var i = 0; i < 10; i++) widgetCardMovie()
                   ],
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text('tv'),
               ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: [
-                    for (var i = 0; i < 10; i++) const widgetCardMovie()
-                  ],
+                  children: [for (var i = 0; i < 10; i++) widgetCardMovie()],
                 ),
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    _getListMovie();
-                  },
-                  child: Text('button'))
+              // ElevatedButton(
+              //     onPressed: () {
+              //       _getListMovie();
+              //     },
+              //     child: Text('button'))
             ]));
           }),
     );
@@ -67,14 +77,13 @@ class _HomePageState extends State<HomePage> {
 
 // ignore: camel_case_types
 class widgetCardMovie extends StatelessWidget {
-  const widgetCardMovie({
-    Key? key,
-  }) : super(key: key);
+  Movie? item;
+  widgetCardMovie({Key? key, this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.0),
       child: Container(
         width: 150,
         height: 250,
@@ -85,8 +94,8 @@ class widgetCardMovie extends StatelessWidget {
             width: 100,
             height: 200,
           ),
-          const Text('Judul'),
-          const Text('Rate'),
+          Text('${item?.original_title}'),
+          Text('${item?.vote_average}'),
         ]),
       ),
     );
