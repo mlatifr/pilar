@@ -5,8 +5,8 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:pilar/constans/hosts.dart';
 import 'package:pilar/transision/route_transisition.dart';
-import 'package:pilar/view/movie/check_connection.dart';
-import 'package:pilar/view/movie/home_page.dart';
+import 'package:pilar/view/check_connection.dart';
+import 'package:pilar/view/home_page.dart';
 
 class ConnectionStatus {
   //This creates the single instance by calling the `_internal` constructor specified below

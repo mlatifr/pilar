@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pilar/providers/movie_provider.dart';
 import 'package:pilar/singletons/offlinepage.dart';
-import 'package:pilar/view/movie/home_page.dart';
+import 'package:pilar/view/home_page.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
