@@ -22,21 +22,23 @@ class widgetCardMovie extends StatefulWidget {
 }
 
 class _widgetCardMovieState extends State<widgetCardMovie> {
+  var _onloading = true;
   @override
   void initState() {
+    _onloading = true;
     widget.detailMovie = false;
     widget.detailTv = false;
     super.initState();
   }
 
   late Movie dataDetail = Movie();
+  BuildContext? dialogContext;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         //get detail movie before navigate to detail movie page
         Future _getDetailMovie(idMovie) async {
-          print('_getListMovie: widgetCardMovie $idMovie');
           await Provider.of<MovieProviders>(context, listen: false)
               .getDetailMovie(idMovie);
           dataDetail =
@@ -45,7 +47,10 @@ class _widgetCardMovieState extends State<widgetCardMovie> {
 
         if (widget.detailMovie) {
           _getDetailMovie(widget.item.id).then((value) => {
-                print('value: $value'),
+                print('_getDetailMovie'),
+                _onloading = false,
+                if (_onloading == false) Navigator.pop(dialogContext!),
+                if (_onloading == false) _onloading = true,
                 Navigator.push<void>(
                   context,
                   MaterialPageRoute<void>(
@@ -55,6 +60,24 @@ class _widgetCardMovieState extends State<widgetCardMovie> {
                   ),
                 )
               });
+        }
+        if (_onloading == true) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              dialogContext = context;
+              return AlertDialog(
+                // title: Text("My title"),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    CircularProgressIndicator(),
+                    Text("Loading..."),
+                  ],
+                ),
+              );
+            },
+          );
         }
       },
       child: Padding(

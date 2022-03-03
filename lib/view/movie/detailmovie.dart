@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pilar/models/movie_model.dart';
 
+// ignore: must_be_immutable
 class DetailMovie extends StatefulWidget {
   Movie? dataDetail;
   DetailMovie({Key? key, this.dataDetail}) : super(key: key);
@@ -26,7 +27,7 @@ class _DetailMovieState extends State<DetailMovie> {
       body: Stack(children: [
         Positioned(
           bottom: 50,
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Image.network(
               'https://image.tmdb.org/t/p/w500/${widget.dataDetail?.poster_path}',
@@ -45,12 +46,12 @@ class _DetailMovieState extends State<DetailMovie> {
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child:
                             Text('Rating: ${widget.dataDetail?.vote_average}'),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Text('${widget.dataDetail?.original_title}'),
                       ),
                       Row(
@@ -76,14 +77,14 @@ class _DetailMovieState extends State<DetailMovie> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(20.0),
+                            padding: const EdgeInsets.all(20.0),
                             child: Text(
                                 'Duration: ${widget.dataDetail?.runtime} Minutes'),
                           ),
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.all(20.0),
                         child: Text(
                           '${widget.dataDetail?.overview}',
                           maxLines: 3,
