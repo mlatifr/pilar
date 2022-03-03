@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class OfflinePage extends StatefulWidget {
   var title;
-  OfflinePage({Key? key,this.title}) : super(key: key);
+  OfflinePage({Key? key, this.title}) : super(key: key);
 
   @override
   State<OfflinePage> createState() => _OfflinePageState();
