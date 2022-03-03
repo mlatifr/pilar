@@ -78,11 +78,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     if (movieList != null)
                       for (var item in movieList.results)
-                        widgetCardMovie(
-                          item: item,
-                          detailMovie: true,
-                          detailTv: false,
-                        )
+                        widgetCardMovie(item: item, detail: 'movie')
                   ],
                 ),
               ),
@@ -107,11 +103,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     if (tvList != null)
                       for (var item in tvList.results)
-                        widgetCardMovie(
-                          item: item,
-                          detailTv: true,
-                          detailMovie: false,
-                        )
+                        widgetCardMovie(item: item, detail: 'tv')
                   ],
                 ),
               ),

@@ -3,8 +3,8 @@ import 'package:pilar/models/movie_model.dart';
 
 // ignore: must_be_immutable
 class DetailMovie extends StatefulWidget {
-  Movie? dataDetail;
-  DetailMovie({Key? key, this.dataDetail}) : super(key: key);
+  var dataDetail, dataBackup;
+  DetailMovie({Key? key, this.dataDetail, this.dataBackup}) : super(key: key);
 
   @override
   State<DetailMovie> createState() => _DetailMovieState();
@@ -25,15 +25,26 @@ class _DetailMovieState extends State<DetailMovie> {
             child: Text('${widget.dataDetail?.original_title}')),
       ),
       body: Stack(children: [
-        Positioned(
-          bottom: 50,
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Image.network(
-              'https://image.tmdb.org/t/p/w500/${widget.dataDetail?.poster_path}',
+        if (widget.dataDetail.poster_path != null)
+          Positioned(
+            bottom: 50,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Image.network(
+                'https://image.tmdb.org/t/p/w500/${widget.dataDetail?.poster_path}',
+              ),
             ),
           ),
-        ),
+        if (widget.dataDetail.poster_path == null)
+          Positioned(
+            bottom: 50,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Image.network(
+                'https://image.tmdb.org/t/p/w500/${widget.dataBackup?.poster_path}',
+              ),
+            ),
+          ),
         //detail movie widget
         Positioned(
             top: MediaQuery.of(context).size.height / 2,

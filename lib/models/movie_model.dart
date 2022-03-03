@@ -31,7 +31,6 @@ class Movie {
 }
 
 Movie movieDetailFromJson(String str) => Movie.fromJson(json.decode(str));
-Movie tvDetailFromJson(String str) => Movie.fromJson(json.decode(str));
 
 class MovieList {
   final List<Movie> results;

@@ -3,19 +3,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:pilar/models/movie_model.dart';
+import 'package:pilar/models/tv_model.dart';
 import 'package:pilar/providers/movie_provider.dart';
 import 'package:pilar/view/movie/detailmovie.dart';
 import 'package:provider/provider.dart';
 
 // ignore: camel_case_types
 class widgetCardMovie extends StatefulWidget {
-  var detailMovie; //for make sure we want to get detail movie
-
-  var detailTv; //for make sure we want to get detail tv
+  var detail; //for make sure we want to get detail movie
   // ignore: prefer_typing_uninitialized_variables
   var item;
-  widgetCardMovie({Key? key, this.item, this.detailMovie, this.detailTv})
-      : super(key: key);
+  widgetCardMovie({Key? key, this.item, this.detail}) : super(key: key);
 
   @override
   State<widgetCardMovie> createState() => _widgetCardMovieState();
@@ -26,12 +24,11 @@ class _widgetCardMovieState extends State<widgetCardMovie> {
   @override
   void initState() {
     _onloading = true;
-    widget.detailMovie = false;
-    widget.detailTv = false;
     super.initState();
   }
 
-  late Movie dataDetail = Movie();
+  late Movie dataDetailMovie = Movie();
+  late TvDetail dataDetailTv = TvDetail();
   BuildContext? dialogContext;
   @override
   Widget build(BuildContext context) {
@@ -41,11 +38,11 @@ class _widgetCardMovieState extends State<widgetCardMovie> {
         Future _getDetailMovie(idMovie) async {
           await Provider.of<MovieProviders>(context, listen: false)
               .getDetailMovie(idMovie);
-          dataDetail =
+          dataDetailMovie =
               Provider.of<MovieProviders>(context, listen: false).detailMovie!;
         }
 
-        if (widget.detailMovie) {
+        if (widget.detail == 'movie') {
           _getDetailMovie(widget.item.id).then((value) => {
                 print('_getDetailMovie'),
                 _onloading = false,
@@ -55,7 +52,7 @@ class _widgetCardMovieState extends State<widgetCardMovie> {
                   context,
                   MaterialPageRoute<void>(
                     builder: (BuildContext context) => DetailMovie(
-                      dataDetail: dataDetail,
+                      dataDetail: dataDetailMovie,
                     ),
                   ),
                 )
@@ -64,13 +61,15 @@ class _widgetCardMovieState extends State<widgetCardMovie> {
         Future _getDetailTv(idTv) async {
           await Provider.of<MovieProviders>(context, listen: false)
               .getDetailTv(idTv);
-          dataDetail =
-              Provider.of<MovieProviders>(context, listen: false).detailMovie!;
+          dataDetailTv =
+              Provider.of<MovieProviders>(context, listen: false).detailTv!;
         }
 
-        if (widget.detailTv) {
+        if (widget.detail == 'tv') {
+          print(
+              '_getDetailTv: ${widget.item.id}\nNama:${widget.item.original_title}');
           _getDetailTv(widget.item.id).then((value) => {
-                print('_getDetailTv'),
+                print('_getDetailTv id: ${widget.item.id}'),
                 _onloading = false,
                 if (_onloading == false) Navigator.pop(dialogContext!),
                 if (_onloading == false) _onloading = true,
@@ -78,7 +77,8 @@ class _widgetCardMovieState extends State<widgetCardMovie> {
                   context,
                   MaterialPageRoute<void>(
                     builder: (BuildContext context) => DetailMovie(
-                      dataDetail: dataDetail,
+                      dataDetail: dataDetailTv,
+                      dataBackup: widget.item,
                     ),
                   ),
                 )
