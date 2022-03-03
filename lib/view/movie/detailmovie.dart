@@ -24,9 +24,14 @@ class _DetailMovieState extends State<DetailMovie> {
             child: Text('${widget.dataDetail?.original_title}')),
       ),
       body: Stack(children: [
-        Image.network(
-          'https://image.tmdb.org/t/p/w500/1BIoJGKbXjdFDAqUEiA2VHqkK1Z.jpg',
-          height: MediaQuery.of(context).size.height,
+        Positioned(
+          bottom: 50,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            child: Image.network(
+              'https://image.tmdb.org/t/p/w500/${widget.dataDetail?.poster_path}',
+            ),
+          ),
         ),
         //detail movie widget
         Positioned(
@@ -36,16 +41,17 @@ class _DetailMovieState extends State<DetailMovie> {
               child: Container(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
-                  color: Colors.blue,
+                  color: Colors.blue.withOpacity(0.85),
                   child: Column(
                     children: [
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Text('Rating'),
+                        child:
+                            Text('Rating: ${widget.dataDetail?.vote_average}'),
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Text('Judul'),
+                        child: Text('${widget.dataDetail?.original_title}'),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,16 +75,17 @@ class _DetailMovieState extends State<DetailMovie> {
                               ],
                             ),
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.all(20.0),
-                            child: Text('Durasi'),
+                            child: Text(
+                                'Duration: ${widget.dataDetail?.runtime} Minutes'),
                           ),
                         ],
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.all(20.0),
                         child: Text(
-                          'Sinopsis: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrs standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has sur ',
+                          '${widget.dataDetail?.overview}',
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                         ),
