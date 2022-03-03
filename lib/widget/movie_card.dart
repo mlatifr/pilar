@@ -105,25 +105,28 @@ class _widgetCardMovieState extends State<widgetCardMovie> {
         }
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          width: 150,
-          height: 250,
-          color: Colors.blue,
-          child: Column(children: [
-            if (widget.item != null)
-              Image.network(
-                'https://image.tmdb.org/t/p/w500/${widget.item?.poster_path}',
-                width: 100,
-                height: 200,
-              ),
-            if (widget.item != null)
-              Text(
-                '${widget.item?.original_title}',
-                overflow: TextOverflow.ellipsis,
-              ),
-            if (widget.item != null) Text('${widget.item?.vote_average}'),
-          ]),
+        padding: EdgeInsets.all(8.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(25.0),
+          child: Container(
+            width: 150,
+            height: 250,
+            color: Colors.blue,
+            child: Column(children: [
+              if (widget.item != null)
+                Image.network(
+                  'https://image.tmdb.org/t/p/w500/${widget.item?.poster_path}',
+                  width: 100,
+                  height: 200,
+                ),
+              if (widget.item != null)
+                Text(
+                  '${widget.item?.original_title}',
+                  overflow: TextOverflow.ellipsis,
+                ),
+              if (widget.item != null) Text('${widget.item?.vote_average}'),
+            ]),
+          ),
         ),
       ),
     );

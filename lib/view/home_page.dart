@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pilar/providers/movie_provider.dart';
 import 'package:pilar/view/offline_page.dart';
+import 'package:pilar/widget/appbar.dart';
 import 'package:pilar/widget/movie_card.dart';
 import 'package:provider/provider.dart';
 
@@ -89,14 +90,79 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  final TextEditingController _editingController = TextEditingController();
+  static String result = "";
+  Future<void> _onSearchMovie() async {
+    // if (mounted) setState(() => _loading = true);
+    // var _duration = const Duration(seconds: 0);
+
+    // await Provider.of<OrderProviders>(context, listen: false).getMenuList();
+
+    // if (mounted) {
+    //   Timer(_duration, () {
+    //     setState(() => _loading = false);
+    //     _refreshController.refreshCompleted();
+    //   });
+    // }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_connectionStatus.toString().contains('none')) {
       return OfflinePage();
     } else {
       return Scaffold(
-        appBar: AppBar(
-          title: Center(child: Text('Pilar Movies')),
+        appBar: CostumeAppBar(
+          costumeTitle: SizedBox(
+            height: 42.0,
+            child: TextFormField(
+              controller: _editingController,
+              onChanged: (value) {
+                result = value;
+                setState(() {
+                  //get data by parameter
+                  _onSearchMovie();
+                });
+              },
+              decoration: InputDecoration(
+                isDense: true,
+                hintText: "Pencarian",
+                hintStyle: TextStyle(color: Colors.grey),
+                prefixIcon: const Icon(
+                  Icons.search,
+                  color: Colors.blue,
+                ),
+                contentPadding: const EdgeInsets.only(
+                  left: 53,
+                  right: 12,
+                  top: 12,
+                  bottom: 8,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.blue,
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.blue,
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.blue,
+                    width: 2.0,
+                  ),
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
+            ),
+          ),
+          title: '',
         ),
         body: AnimatedBuilder(
             animation: MovieProviders(),
