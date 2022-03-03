@@ -60,6 +60,29 @@ class _widgetCardMovieState extends State<widgetCardMovie> {
                   ),
                 )
               });
+        } //get detail TVs before navigate to detail movie page
+        Future _getDetailTv(idTv) async {
+          await Provider.of<MovieProviders>(context, listen: false)
+              .getDetailTv(idTv);
+          dataDetail =
+              Provider.of<MovieProviders>(context, listen: false).detailMovie!;
+        }
+
+        if (widget.detailTv) {
+          _getDetailTv(widget.item.id).then((value) => {
+                print('_getDetailTv'),
+                _onloading = false,
+                if (_onloading == false) Navigator.pop(dialogContext!),
+                if (_onloading == false) _onloading = true,
+                Navigator.push<void>(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => DetailMovie(
+                      dataDetail: dataDetail,
+                    ),
+                  ),
+                )
+              });
         }
         if (_onloading == true) {
           showDialog(

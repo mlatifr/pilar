@@ -81,6 +81,7 @@ class _HomePageState extends State<HomePage> {
                         widgetCardMovie(
                           item: item,
                           detailMovie: true,
+                          detailTv: false,
                         )
                   ],
                 ),
@@ -108,6 +109,8 @@ class _HomePageState extends State<HomePage> {
                       for (var item in tvList.results)
                         widgetCardMovie(
                           item: item,
+                          detailTv: true,
+                          detailMovie: false,
                         )
                   ],
                 ),

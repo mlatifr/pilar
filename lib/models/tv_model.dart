@@ -3,10 +3,16 @@ library pilar.movie_model;
 import 'dart:convert';
 
 class Tv {
-  var original_title, vote_average, overview, poster_path;
-  Tv({this.original_title, this.vote_average, this.overview, this.poster_path});
+  var id, original_title, vote_average, overview, poster_path;
+  Tv(
+      {this.id,
+      this.original_title,
+      this.vote_average,
+      this.overview,
+      this.poster_path});
   factory Tv.fromJson(Map<String, dynamic> json) {
     return Tv(
+      id: json['id'],
       original_title: json['original_name'],
       vote_average: json['vote_average'],
       overview: json['overview'],
@@ -14,6 +20,7 @@ class Tv {
     );
   }
   Map<String, dynamic> toJson() => {
+        'id': id,
         'original_name': original_title,
         'vote_average': vote_average,
         'overview': overview,
