@@ -10,7 +10,41 @@ class DetailMovie extends StatefulWidget {
   State<DetailMovie> createState() => _DetailMovieState();
 }
 
+BuildContext? dialogContext;
+
 class _DetailMovieState extends State<DetailMovie> {
+  // cekDataSource() {
+  //   if (1 == 1 ||
+  // widget.dataDetail.original_title == null ||
+  // widget.dataDetail.poster_path == null ||
+  // widget.dataDetail.vote_average == null ||
+  // widget.dataDetail.runtime == null ||
+  // widget.dataDetail.overview == null) {
+  //     showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         dialogContext = context;
+  //         return AlertDialog(
+  //           title: Text("Warning"),
+  //           content: Column(
+  //             mainAxisSize: MainAxisSize.min,
+  //             children: const [
+  //               Text("Cant get real data,\nData source from Backup Data"),
+  //             ],
+  //           ),
+  //           actions: [
+  //             ElevatedButton(
+  //                 onPressed: () {
+  //                   Navigator.pop(dialogContext!);
+  //                 },
+  //                 child: Text('Close'))
+  //           ],
+  //         );
+  //       },
+  //     );
+  //   }
+  // }
+
   @override
   void initState() {
     super.initState();
@@ -18,12 +52,20 @@ class _DetailMovieState extends State<DetailMovie> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.dataDetail.original_title == null ||
+        widget.dataDetail.poster_path == null ||
+        widget.dataDetail.vote_average == null ||
+        widget.dataDetail.runtime == null ||
+        widget.dataDetail.overview == null ||
+        widget.dataDetail.id != widget.dataBackup.id)
+      Future.delayed(Duration.zero, () => showAlert(context));
     return Scaffold(
       appBar: AppBar(
         title: Align(
             alignment: Alignment.center,
             child: Column(
               children: [
+                // cekDataSource(),
                 if (widget.dataDetail.original_title != null)
                   Text('${widget.dataDetail?.original_title}'),
                 if (widget.dataDetail.original_title == null)
@@ -148,6 +190,31 @@ class _DetailMovieState extends State<DetailMovie> {
                   )),
             )),
       ]),
+    );
+  }
+
+  void showAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        dialogContext = context;
+        return AlertDialog(
+          title: Text("Warning"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              Text("Cant get real data,\nData source from Backup Data"),
+            ],
+          ),
+          actions: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(dialogContext!);
+                },
+                child: Text('Close'))
+          ],
+        );
+      },
     );
   }
 }
