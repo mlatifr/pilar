@@ -22,7 +22,14 @@ class _DetailMovieState extends State<DetailMovie> {
       appBar: AppBar(
         title: Align(
             alignment: Alignment.center,
-            child: Text('${widget.dataDetail?.original_title}')),
+            child: Column(
+              children: [
+                if (widget.dataDetail.original_title != null)
+                  Text('${widget.dataDetail?.original_title}'),
+                if (widget.dataDetail.original_title == null)
+                  Text('${widget.dataBackup?.original_title}'),
+              ],
+            )),
       ),
       body: Stack(children: [
         if (widget.dataDetail.poster_path != null)
@@ -56,15 +63,28 @@ class _DetailMovieState extends State<DetailMovie> {
                   color: Colors.blue.withOpacity(0.85),
                   child: Column(
                     children: [
+                      if (widget.dataDetail.vote_average != null)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                              'Rating: ${widget.dataDetail?.vote_average}'),
+                        ),
+                      if (widget.dataDetail.vote_average == null)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                              'Rating: ${widget.dataBackup?.vote_average}'),
+                        ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child:
-                            Text('Rating: ${widget.dataDetail?.vote_average}'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('${widget.dataDetail?.original_title}'),
-                      ),
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              if (widget.dataDetail.original_title != null)
+                                Text('${widget.dataDetail?.original_title}'),
+                              if (widget.dataDetail.original_title == null)
+                                Text('${widget.dataBackup?.original_title}'),
+                            ],
+                          )),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -89,17 +109,39 @@ class _DetailMovieState extends State<DetailMovie> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(20.0),
-                            child: Text(
-                                'Duration: ${widget.dataDetail?.runtime} Minutes'),
+                            child: Column(
+                              children: [
+                                if (widget.dataDetail.runtime != null)
+                                  Text(
+                                      'Duration: ${widget.dataDetail?.runtime} Minutes'),
+                                if (widget.dataBackup.runtime != null)
+                                  Text(
+                                      'Duration: ${widget.dataBackup?.runtime} Minutes'),
+                                if (widget.dataBackup.runtime == null &&
+                                    widget.dataDetail.runtime == null)
+                                  Text('Duration: - Minutes'),
+                              ],
+                            ),
                           ),
                         ],
                       ),
                       Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: Text(
-                          '${widget.dataDetail?.overview}',
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
+                        child: Column(
+                          children: [
+                            if (widget.dataDetail.overview != null)
+                              Text(
+                                '${widget.dataDetail?.overview}',
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            if (widget.dataDetail.overview == null)
+                              Text(
+                                '${widget.dataBackup?.overview}',
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                          ],
                         ),
                       ),
                     ],

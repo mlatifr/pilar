@@ -53,6 +53,7 @@ class _widgetCardMovieState extends State<widgetCardMovie> {
                   MaterialPageRoute<void>(
                     builder: (BuildContext context) => DetailMovie(
                       dataDetail: dataDetailMovie,
+                      dataBackup: widget.item,
                     ),
                   ),
                 )
